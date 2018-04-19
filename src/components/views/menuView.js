@@ -58,7 +58,7 @@ class Menu extends Component {
           <p>Pizza Menu</p>
           {/* <pre>{JSON.stringify(this.props.reduxState.pizzaMenu)}</pre> */}
           <div>
-
+            {pizzaDisplay}
           </div>
 
         </div>
