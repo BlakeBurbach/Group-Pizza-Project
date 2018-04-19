@@ -6,6 +6,7 @@ var pizzaRouter = require('./routers/pizza.router')
 
 /** ---------- MIDDLEWARE ---------- **/
 app.use(bodyParser.json()); // needed for angular requests
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(express.static('build'));
 
 /** ---------- EXPRESS ROUTES ---------- **/
