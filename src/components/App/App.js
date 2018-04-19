@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Menu from '../views/menu.js';
-import Checkout from '../views/checkout.js';
+import Menu from '../views/menuView';
+import Checkout from '../views/checkoutView';
 
 
 class App extends Component {
