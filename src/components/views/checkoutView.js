@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+const mapStateToProps = reduxState => ({
+  reduxState,
+});
 
 class Checkout extends Component {
+    
 
     render() {
       return (
@@ -14,4 +19,4 @@ class Checkout extends Component {
     }
   }
   
-  export default Checkout;
+  export default connect(mapStateToProps)(Checkout);
