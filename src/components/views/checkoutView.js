@@ -5,10 +5,6 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-const mapStateToProps = reduxState => ({
-  reduxState,
-});
-
 class Checkout extends Component {
 
 
