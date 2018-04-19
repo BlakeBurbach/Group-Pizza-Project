@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+
 const mapStateToProps = reduxState => ({
   reduxState,
 });
@@ -57,7 +58,7 @@ class Menu extends Component {
           <p>Pizza Menu</p>
           {/* <pre>{JSON.stringify(this.props.reduxState.pizzaMenu)}</pre> */}
           <div>
-            {pizzaDisplay}
+
           </div>
 
         </div>

@@ -15,20 +15,32 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
     console.log('rootSaga loaded');
     yield takeEvery('GET_PIZZAS', fetchSaga); 
+    yield takeEvery('ADD_ORDER', postSaga);
 
   }
 
 function* fetchSaga(action){
   try {
       const pizzaResponse = yield call(axios.get, '/api/pizza');
-      console.log(pizzaResponse);
+      console.log('GET pizzaResponse', pizzaResponse);
       yield put({
           type: 'SET_MENU',
           payload: pizzaResponse.data
       })
   } catch (error) {
-    console.log('fetchSaga', error)
+    console.log('fetchSaga ERROR', error)
   }
+}
+
+function* postSaga(action){
+    try {
+        yield call(axios.post, '/api/pizza', action.payload);
+        yield put({
+            type: 'GET_PIZZAS'
+        })
+    } catch (error) {
+        console.log('postSaga ERROR', error)
+    }
 }
 
 const pizzaMenu = (state = [], action) => {
