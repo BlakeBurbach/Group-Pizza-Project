@@ -8,43 +8,54 @@ const mapStateToProps = reduxState => ({
 class Menu extends Component {
 
     componentDidMount() {
-        this.props.dispatch({
+        this.props.dispatch(
+          {
             type: 'GET_PIZZAS'
-        })
-
-     }
-
-    handleAdd = (event) => {
-      console.log('handle add', event.target.value)
-      
+        }
+      )
     }
 
-    handleAdd = () =>{
-      return(pizzaId) => {
+    handleAdd = () => {
+      return (event) => {
+        console.log('handle add', event.target.value)
         this.props.dispatch({
-          type: 'ADD_PIZZA'
+          type: 'ADD_PIZZA', 
+          payload: event.target.value
         })
       }
     }
 
-    handleSubtract = (event) => {
-      console.log('handle subtract', event.target.value)
-      this.props.dispatch({
-        type: 'REMOVE_PIZZA'
-      })
+
+    handleSubtract = () => {
+      return (event) => {
+        console.log('handle subtract', event.target.value)
+        this.props.dispatch({
+          type: 'REMOVE_PIZZA',
+          payload: event.target.value 
+        })
+      }
     }
 
 
     render() {
       let pizzaDisplay = this.props.reduxState.pizzaMenu.map((pizza)=> {
-      return (<div key = {pizza.id}><p>{pizza.name}</p> <pre>{pizza.description}</pre> <pre>{pizza.cost}</pre><button onClick={this.handleAdd}>+</button>{this.props.reduxState.countPizzas}<button value={pizza.id} onClick={this.handleSubtract}>-</button></div>)
+      return (
+        <div key = {pizza.id}>
+        <p>{pizza.name}</p>
+        <pre>{pizza.description}</pre> 
+        <pre>{pizza.cost}</pre>
+        <button value={pizza.id} onClick={this.handleAdd()}>+</button>
+        {this.props.reduxState.countPizzas}
+        <button value={pizza.id} onClick={this.handleSubtract()}>-</button>
+        </div>
+        )
       })
       return (
 
         <div className="App">
 
           <p>Pizza Menu</p>
-          <pre>{JSON.stringify(this.props.reduxState.pizzaMenu)}</pre>
+          {/* <pre>{JSON.stringify(this.props.reduxState.pizzaMenu)}</pre> */}
           <div>
             {pizzaDisplay}
           </div>
