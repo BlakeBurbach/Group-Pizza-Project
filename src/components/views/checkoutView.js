@@ -13,7 +13,7 @@ class Checkout extends Component {
         <div className="App">
 
           <p>Checkout</p>
-          
+          <input type="text" value={this.state.newOrder.customer_name} />
         </div>
       );
     }

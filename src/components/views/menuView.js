@@ -20,7 +20,7 @@ class Menu extends Component {
 
           <p>Pizza Menu</p>
           <div>
-            
+
           </div>
 
         </div>

@@ -21,7 +21,7 @@ function* rootSaga() {
 function* fetchSaga(action){
   try {
       const pizzaResponse = yield call(axios.get, '/api/pizza');
-      console.log(pizzaResponse);
+      console.log('GET pizzaResponse', pizzaResponse);
       yield put({
           type: 'SET_MENU',
           payload: pizzaResponse.data
@@ -34,7 +34,7 @@ function* fetchSaga(action){
 const pizzaMenu = (state = [], action) => {
     switch (action.type) {
         case 'SET_MENU' :
-            return state
+            return action.payload
         default :
             return state    
     }
