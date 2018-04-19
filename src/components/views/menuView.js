@@ -3,11 +3,6 @@ import React, { Component } from 'react';
 
 class Menu extends Component {
 
-    componentDidMount() {
-        this.props.dispatch({
-            type: 'GET_PIZZAS'
-        })
-     }
 
     render() {
       return (
