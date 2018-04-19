@@ -3,15 +3,28 @@ var pool = require('../modules/pool')
 var router = express.Router();
 
 router.get('/', (req, res) => {
-    var queryText = `SELECT * FROM pizza`;
-    pool.query(queryText).then((result) => {
-        console.log('Successfully got pizzas');
-        res.send(result.rows)
-    }).catch((error) => {
-        console.log('Error in getting pizzas: ', error)
-        res.sendStatus(500);
-    })
-
+    const order = req.query.id;
+    if(order != undefined){
+        console.log('Getting order!');
+        const queryText = `SELECT * FROM "order";`
+        pool.query(queryText).then((result) => {
+            console.log('Successfully got orders!');
+            res.send(result.rows)
+        }).catch((error) => {
+            console.log('Error in getting orders: ', error);
+            res.sendStatus(500);
+        })
+        
+    }else {
+        var queryText = `SELECT * FROM pizza`;
+        pool.query(queryText).then((result) => {
+            console.log('Successfully got pizzas');
+            res.send(result.rows)
+        }).catch((error) => {
+            console.log('Error in getting pizzas: ', error)
+            res.sendStatus(500);
+        })
+    }
 })
 
 router.post('/', (req, res) => {
