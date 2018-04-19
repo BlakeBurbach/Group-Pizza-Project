@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = reduxState => ({
+  reduxState,
+});
 
 
 class Menu extends Component {
@@ -23,4 +28,4 @@ class Menu extends Component {
     }
   }
   
-  export default Menu;
+  export default connect(mapStateToProps)(Menu);
