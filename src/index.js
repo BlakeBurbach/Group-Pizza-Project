@@ -45,7 +45,7 @@ const countPizzas = (state = 0, action ) => {
         case 'ADD_PIZZA':
           return state + 1;
         case 'REMOVE_PIZZA':
-          return state -1;
+          return state - 1;
         default:
           return state 
       }
