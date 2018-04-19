@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './App.css';
-import Menu from '../views/menuView'
-import Checkout from '../views/checkoutView'
+
 
 class App extends Component {
   render() {
