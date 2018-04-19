@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import Menu from '../../views/menu.js';
+import Menu from '../views/menu.js';
+import Checkout from '../views/checkout.js';
 
 class App extends Component {
-  constructor(){
-    super()
-  }
+
   render() {
     return (
       <div className="App">
@@ -29,6 +28,9 @@ class App extends Component {
               </li>
             </ul>
           </nav>
+          <hr />
+          <Route exact path="/menu" component={Menu}/>
+          <Route path="/checkout" component={Checkout}/>
         </div>  
       </Router>
       </div>
