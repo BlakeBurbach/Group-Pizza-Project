@@ -7,8 +7,24 @@ router.get('/', (req, res) => {
     pool.query(queryText).then((result) => {
         console.log('Successfully got pizzas');
         res.send(result.rows)
+    }).catch((error) => {
+        console.log('Error in getting pizzas: ', error)
+        res.sendStatus(500);
     })
 
+})
+
+router.post('/', (req, res) => {
+    var pizza = req.body;
+    console.log(pizza);
+    var queryText = `INSERT INTO "order" ("customer_name", "order_total") VALUES ($1, $2);`
+    pool.query(queryText, [pizza.customer_name, pizza.order_total]).then((response) => {
+        console.log('Succesfully posted pizza!');
+        res.sendStatus(200);
+    }).catch((error) => {
+        console.log('Error in posting pizza: ', error);
+        res.sendStatus(500);
+    })
 })
 
 module.exports = router
