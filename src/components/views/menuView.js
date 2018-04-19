@@ -7,7 +7,6 @@ const mapStateToProps = reduxState => ({
 });
 
 class Menu extends Component {
-
     componentDidMount() {
         this.props.dispatch(
           {
@@ -16,27 +15,26 @@ class Menu extends Component {
       )
     }
 
-    handleAdd = () => {
-      return (event) => {
+    handleAdd = (pizza) => {
+      return (event, pizza) => {
         console.log('handle add', event.target.value)
-        this.props.dispatch({
-          type: 'ADD_PIZZA', 
-          payload: event.target.value
+          this.props.dispatch({
+            type: 'ADD_PIZZA', 
+            payload: event.target.value
         })
       }
     }
 
 
-    handleSubtract = () => {
+    handleSubtract = (pizza) => {
       return (event) => {
         console.log('handle subtract', event.target.value)
         this.props.dispatch({
           type: 'REMOVE_PIZZA',
-          payload: event.target.value 
+          payload: event.target.value
         })
       }
     }
-
 
     render() {
       let pizzaDisplay = this.props.reduxState.pizzaMenu.map((pizza)=> {
@@ -45,9 +43,9 @@ class Menu extends Component {
         <p>{pizza.name}</p>
         <pre>{pizza.description}</pre> 
         <pre>{pizza.cost}</pre>
-        <button value={pizza.id} onClick={this.handleAdd()}>+</button>
+        <button value={pizza.id} onClick={this.handleAdd(pizza)}>+</button>
         {this.props.reduxState.countPizzas}
-        <button value={pizza.id} onClick={this.handleSubtract()}>-</button>
+        <button value={pizza.id} onClick={this.handleSubtract(pizza)}>-</button>
         </div>
         )
       })
