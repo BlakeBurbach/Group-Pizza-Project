@@ -34,14 +34,25 @@ function* fetchSaga(action){
 const pizzaMenu = (state = [], action) => {
     switch (action.type) {
         case 'SET_MENU' :
-            return state
+            return action.payload
         default :
             return state    
     }
 }
 
+const countPizzas = (state = 0, action ) => {
+    switch (action.type) {
+        case 'ADD_PIZZA':
+          return state + 1;
+        case 'REMOVE_PIZZA':
+          return state -1;
+        default:
+          return state 
+      }
+}
+
 const store = createStore(
-    combineReducers({ pizzaMenu }),
+    combineReducers({ pizzaMenu, countPizzas}),
     applyMiddleware(sagaMiddleware, logger)
   );
 
