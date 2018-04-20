@@ -15,20 +15,33 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
     console.log('rootSaga loaded');
     yield takeEvery('GET_PIZZAS', fetchSaga);
+    yield takeEvery('GET_PIZZAS', fetchSaga); 
+    yield takeEvery('ADD_ORDER', postSaga);
 
   }
 
 function* fetchSaga(action){
   try {
       const pizzaResponse = yield call(axios.get, '/api/pizza');
-      console.log(pizzaResponse);
+      console.log('GET pizzaResponse', pizzaResponse);
       yield put({
           type: 'SET_MENU',
           payload: pizzaResponse.data
       })
   } catch (error) {
-    console.log('fetchSaga', error)
+    console.log('fetchSaga ERROR', error)
   }
+}
+
+function* postSaga(action){
+    try {
+        yield call(axios.post, '/api/pizza', action.payload);
+        yield put({
+            type: 'GET_PIZZAS'
+        })
+    } catch (error) {
+        console.log('postSaga ERROR', error)
+    }
 }
 
 const pizzaMenu = (state = [], action) => {
@@ -39,6 +52,7 @@ const pizzaMenu = (state = [], action) => {
             return state    
     }
 }
+
 
 let menuArray = [{name: 'Splat of Marinara', quantity: 0, cost: 0}, 
 {name: 'Onamonapizza', quantity: 0, cost: 0}, {name: 'Pepperoni', quantity: 0, cost: 0},
@@ -69,17 +83,9 @@ const orderTotal = (state = menuArray, action) => {
         })
     }
     return state
+
 }
-// const countPizzas = (state = 0, action ) => {
-//     switch (action.type) {
-//         case 'ADD_PIZZA':
-//           return state + 1;
-//         case 'REMOVE_PIZZA':
-//           return state -1;
-//         default:
-//           return state 
-//       }
-// }
+
 
 const store = createStore(
     combineReducers({ pizzaMenu, orderTotal}),
