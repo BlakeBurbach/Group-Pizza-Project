@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import axios from 'axios';
 
 const mapStateToProps = reduxState => ({
     reduxState,
@@ -11,24 +11,24 @@ const mapStateToProps = reduxState => ({
           customerList : []
       }
 
-//   getCustomerInfo =()=>{
-//     axios.get('/api/pizza?id=1').then((response)=>{
-//         this.setState({
-//             customerList: response.data
-//         }); 
-//         console.log('get customer info', this.state.customerList)
-//     }).catch(error =>{
-//         console.log(error)
-//     })
-//     }
+  getCustomerInfo =()=>{
+    axios.get('/api/pizza?id=1').then((response)=>{
+        this.setState({
+            customerList: response.data
+        }); 
+        console.log('get customer info', this.state.customerList)
+    }).catch(error =>{
+        console.log(error)
+    })
+    }
     
     componentDidMount() {
 
-        // this.getCustomerInfo()
+        this.getCustomerInfo()
         this.props.dispatch(
           {
             type: 'GET_ORDERS',
-            payload: this.state.customerList
+            // payload: this.state.customerList
         })
     }
 
@@ -42,7 +42,7 @@ const mapStateToProps = reduxState => ({
 
         <div className="App">
           <p>Pizza Orders Admin View!!</p>
-          <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre>
+          {/* <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre> */}
           <table>
             <thead>
               <tr>
