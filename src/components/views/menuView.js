@@ -27,7 +27,7 @@ class Menu extends Component {
   }
 
 
-    handleSubtractClick = (event) => {
+    handleSubtract = (event) => {
         console.log('handle subtract', event.target.value)
         let pizzaToSend = JSON.parse(event.target.value)
         return this.props.dispatch({
@@ -38,13 +38,11 @@ class Menu extends Component {
 
     
     render() {
+
+
       let pizzaDisplay = this.props.reduxState.pizzaMenu.map((pizza)=> {
-
       return (<div key = {pizza.id}><p>{pizza.name}</p> <pre>{pizza.description}</pre> <pre>{pizza.cost}</pre><button value={JSON.stringify(pizza)} onClick={this.handleAdd}>+</button>Pizza<button value={JSON.stringify(pizza)} onClick={this.handleSubtract}>-</button></div>)
-
-
       })
-      
       return (
 
         <div className="App">
