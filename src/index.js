@@ -14,7 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
     console.log('rootSaga loaded');
-    yield takeEvery('GET_PIZZAS', fetchSaga); 
+    yield takeEvery('GET_PIZZAS', fetchSaga);
 
   }
 
@@ -40,19 +40,49 @@ const pizzaMenu = (state = [], action) => {
     }
 }
 
-const countPizzas = (state = 0, action ) => {
-    switch (action.type) {
-        case 'ADD_PIZZA':
-          return state + 1;
-        case 'REMOVE_PIZZA':
-          return state -1;
-        default:
-          return state 
-      }
+let menuArray = [{name: 'Splat of Marinara', quantity: 0, cost: 0}, 
+{name: 'Onamonapizza', quantity: 0, cost: 0}, {name: 'Pepperoni', quantity: 0, cost: 0},
+{name: 'Over the Rainbow', quantity: 0, cost: 0}, {name: 'Chinese Firedragon', quantity: 0, cost: 0},
+{name: 'Bad Date', quantity: 0, cost: 0}]
+
+const orderTotal = (state = menuArray, action) => {
+
+    if(action.type === 'ADD_PIZZA'){
+        console.log('in ADD_PIZZA');
+        
+         let newMenuArray = menuArray.map((pizza) => {
+            if (pizza.name === action.payload.name){
+                pizza.quantity++;
+                pizza.cost += parseFloat(action.payload.cost);
+            }
+            
+            return newMenuArray
+            
+        })
+        } if(action.type === 'DELETE_PIZZA') {
+            let newMenuArray = menuArray.map((pizza) => {
+                if (pizza.name === action.payload.name){
+                    pizza.quantity--;
+                    pizza.cost-= action.payload.cost;
+                }
+                return newMenuArray
+        })
+    }
+    return state
 }
+// const countPizzas = (state = 0, action ) => {
+//     switch (action.type) {
+//         case 'ADD_PIZZA':
+//           return state + 1;
+//         case 'REMOVE_PIZZA':
+//           return state -1;
+//         default:
+//           return state 
+//       }
+// }
 
 const store = createStore(
-    combineReducers({ pizzaMenu, countPizzas}),
+    combineReducers({ pizzaMenu, orderTotal}),
     applyMiddleware(sagaMiddleware, logger)
   );
 
