@@ -43,24 +43,26 @@ function* postSaga(action){
 }
 
 
-
-const pizzaMenu = (state = [], action, pizzaCount) => {
+const pizzaMenu = (state = [], action) => {
     switch (action.type) {
         case 'SET_MENU' :
+        console.log('SET_MENU', action.payload)
             return action.payload
         default :
             return state    
     }
 }
 
+
+
 const countPizzas = (state = 0, action ) => {
     switch (action.type) {
         case 'ADD_PIZZA':
-        console.log('ADD_Pizza', action.payload)
-          return state + 1;
+        console.log('ADD_Pizza', action.payload.quantity)
+            return action.payload.quantity + 1;
         case 'REMOVE_PIZZA':
-        console.log('Remove_Pizza', action.payload)
-          return state - 1;
+        console.log('Remove_Pizza', action.payload.quantity)
+          return action.payload.quantity - 1;
         default:
           return state 
       }
