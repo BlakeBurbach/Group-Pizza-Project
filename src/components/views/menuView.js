@@ -19,6 +19,7 @@ class Menu extends Component {
         })
     }
 
+
     handleAdd = (event) => {
 
       this.setState({
@@ -31,7 +32,9 @@ class Menu extends Component {
           type: 'ADD_PIZZA',
           payload: pizzaToSend
         })
+    }
   }
+
 
 
     handleSubtract = (event) => {
@@ -44,10 +47,11 @@ class Menu extends Component {
         this.setState({
           count: this.state.count -= 1
         })
+
         console.log('handle subtract', event.target.value)
         let pizzaToSend = JSON.parse(event.target.value)
         return this.props.dispatch({
-          type: 'DELETE_PIZZA',
+          type: 'REMOVE_PIZZA',
           payload: pizzaToSend
         })
       }
