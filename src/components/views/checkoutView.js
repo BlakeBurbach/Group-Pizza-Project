@@ -23,6 +23,17 @@ handleChange = (event) => {
 }
 
     render() {
+      let newPizzaDisplay = this.props.reduxState.orderTotal.map((updatedPizza)=> {
+        if(updatedPizza.quantity === 0){
+          return (<tr key={updatedPizza.id}></tr>)
+        } else {
+        return (<tr key={updatedPizza.id}>
+          <td>{updatedPizza.name}</td>
+          <td>{updatedPizza.quantity}</td>
+          <td>{updatedPizza.cost}</td>  
+          </tr>)
+        }
+      })
       return (
         <div className="App">
 
@@ -47,11 +58,7 @@ handleChange = (event) => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+              {newPizzaDisplay}
             </tbody>
           </table>
         </div>

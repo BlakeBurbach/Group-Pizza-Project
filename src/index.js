@@ -69,6 +69,8 @@ const orderTotal = (state = menuArray, action) => {
             if (pizza.name === action.payload.name) {
                 pizza.quantity++;
                 pizza.cost += parseFloat(action.payload.cost);
+                pizza.cost = parseFloat(pizza.cost.toFixed(2));
+                
             }
             return pizza;
         })
@@ -77,10 +79,12 @@ const orderTotal = (state = menuArray, action) => {
     let newMenuArray = menuArray.map((pizza) => {
         if (pizza.name === action.payload.name) {
             pizza.quantity--;
-            pizza.cost -= action.payload.cost;
+            pizza.cost -= parseFloat(action.payload.cost);
+            pizza.cost = parseFloat(pizza.cost.toFixed(2));
         }
-        return newMenuArray
+        return pizza;
     })
+    return newMenuArray
 }
 return menuArray
 
