@@ -14,8 +14,7 @@ class Menu extends Component {
         this.props.dispatch(
           {
             type: 'GET_PIZZAS'
-        }
-      )
+        })
     }
 
     handleAddClick = () => {
@@ -26,8 +25,8 @@ class Menu extends Component {
           type: 'ADD_PIZZA',
           payload: pizzaToSend
         })
-      }
     }
+  }
 
 
     handleSubtractClick = () => {
@@ -41,19 +40,13 @@ class Menu extends Component {
       }
     }
 
+    
     render() {
       let pizzaDisplay = this.props.reduxState.pizzaMenu.map((pizza)=> {
-      return (
-        
-        <div key = {pizza.id}>
-        <p>{pizza.name}</p>
-        <pre>{pizza.description}</pre> 
-        <pre>{pizza.cost}</pre>
-        <button value={JSON.stringify(pizza)} onClick={this.handleAddClick()}>+</button>
-        {this.props.reduxState.countPizzas}
-        <button value={JSON.stringify(pizza)} onClick={this.handleSubtractClick()}>-</button>
-        </div>
-        )
+
+      return (<div key = {pizza.id}><p>{pizza.name}</p> <pre>{pizza.description}</pre> <pre>{pizza.cost}</pre><button value={JSON.stringify(pizza)} onClick={this.handleAdd}>+</button>Pizza<button value={pizza.id} onClick={this.handleSubtract}>-</button></div>)
+
+
       })
       
       return (
@@ -61,7 +54,7 @@ class Menu extends Component {
         <div className="App">
 
           <p>Pizza Menu</p>
-          {/* <pre>{JSON.stringify(this.props.reduxState.pizzaMenu)}</pre> */}
+          <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre>
           <div>
             {pizzaDisplay}
           </div>

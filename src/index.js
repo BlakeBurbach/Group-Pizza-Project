@@ -14,6 +14,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 function* rootSaga() {
     console.log('rootSaga loaded');
+    yield takeEvery('GET_PIZZAS', fetchSaga);
     yield takeEvery('GET_PIZZAS', fetchSaga); 
     yield takeEvery('ADD_ORDER', postSaga);
   }
@@ -54,22 +55,41 @@ const pizzaMenu = (state = [], action) => {
 }
 
 
+let menuArray = [{name: 'Splat of Marinara', quantity: 0, cost: 0}, 
+{name: 'Onamonapizza', quantity: 0, cost: 0}, {name: 'Pepperoni', quantity: 0, cost: 0},
+{name: 'Over the Rainbow', quantity: 0, cost: 0}, {name: 'Chinese Firedragon', quantity: 0, cost: 0},
+{name: 'Bad Date', quantity: 0, cost: 0}]
 
-const countPizzas = (state = 0, action ) => {
-    switch (action.type) {
-        case 'ADD_PIZZA':
-        console.log('ADD_Pizza', action.payload.quantity)
-            return action.payload.quantity + 1;
-        case 'REMOVE_PIZZA':
-        console.log('Remove_Pizza', action.payload.quantity)
-          return action.payload.quantity - 1;
-        default:
-          return state 
-      }
+const orderTotal = (state = menuArray, action) => {
+
+    if(action.type === 'ADD_PIZZA'){
+        console.log('in ADD_PIZZA');
+        
+         let newMenuArray = menuArray.map((pizza) => {
+            if (pizza.name === action.payload.name){
+                pizza.quantity++;
+                pizza.cost += parseFloat(action.payload.cost);
+            }
+            
+            return newMenuArray
+            
+        })
+        } if(action.type === 'DELETE_PIZZA') {
+            let newMenuArray = menuArray.map((pizza) => {
+                if (pizza.name === action.payload.name){
+                    pizza.quantity--;
+                    pizza.cost-= action.payload.cost;
+                }
+                return newMenuArray
+        })
+    }
+    return state
+
 }
 
+
 const store = createStore(
-    combineReducers({ pizzaMenu, countPizzas}),
+    combineReducers({ pizzaMenu, orderTotal}),
     applyMiddleware(sagaMiddleware, logger)
   );
 
