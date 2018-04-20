@@ -71,7 +71,7 @@ class Menu extends Component {
         <div className="App">
 
           <p>Pizza Menu</p>
-          <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre>
+          {/* <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre> */}
           <div>
             {pizzaDisplay}
           </div>

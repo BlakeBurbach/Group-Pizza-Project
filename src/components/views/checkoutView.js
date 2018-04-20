@@ -13,13 +13,22 @@ state = {
   }
 }
 
-handleChange = (event) => {
-  this.setState({
-    newOrder: {
+handleChange = (propertyName) => {
+  return (event) => {
+    this.setState({
+      newOrder: {
         ...this.state.newOrder,
-        [event.target.name]: event.target.value,
-    }
-});
+        [propertyName]: event.target.value
+      }
+  });
+  }
+}
+
+addNewOrder = () => {
+  this.props.dispatch({
+    type: 'ADD_ORDER', 
+    payload: this.state.newOrder
+  })
 }
 
     render() {
@@ -34,13 +43,20 @@ handleChange = (event) => {
           </tr>)
         }
       })
+      let pizzaTotal = 0;
+     let calcCost = this.props.reduxState.orderTotal.map((totalCost)=> {
+        pizzaTotal += parseFloat(totalCost.cost)
+        pizzaTotal = parseFloat(pizzaTotal.toFixed(2))
+        return totalCost
+      })
+      
       return (
         <div className="App">
 
           <p>Checkout</p>
           <form onSubmit={this.addNewOrder}>
-            <input type="text" name="customer_name" placeholder="Customer Name" value={this.state.newOrder.customer_name} onChange={this.handleChange}/>
-            <input type="text" name="order_total" placeholder="Order Total" value={this.state.newOrder.order_total} onChange={this.handleChange}/>
+            <input type="text" name="customer_name" placeholder="Customer Name" value={this.state.newOrder.customer_name} onChange={this.handleChange('customer_name')}/>
+            <input type="number" name="order_total" placeholder="Order Total" value={pizzaTotal} onChange={this.handleChange('order_total')}/>
             <input type="submit" value="Checkout"/>
           </form>
           <table>
@@ -61,6 +77,7 @@ handleChange = (event) => {
               {newPizzaDisplay}
             </tbody>
           </table>
+          <p>{pizzaTotal}</p>
         </div>
       );
     }

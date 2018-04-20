@@ -33,6 +33,7 @@ function* fetchSaga(action) {
 
 function* postSaga(action) {
     try {
+        parseFloat(action.payload.order_total)
         yield call(axios.post, '/api/pizza', action.payload);
         yield put({
             type: 'GET_PIZZAS'
