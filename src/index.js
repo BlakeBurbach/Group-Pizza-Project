@@ -17,7 +17,6 @@ function* rootSaga() {
     yield takeEvery('GET_PIZZAS', fetchSaga);
     yield takeEvery('GET_PIZZAS', fetchSaga); 
     yield takeEvery('ADD_ORDER', postSaga);
-
   }
 
 function* fetchSaga(action){
@@ -44,9 +43,11 @@ function* postSaga(action){
     }
 }
 
+
 const pizzaMenu = (state = [], action) => {
     switch (action.type) {
         case 'SET_MENU' :
+        console.log('SET_MENU', action.payload)
             return action.payload
         default :
             return state    

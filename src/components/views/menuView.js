@@ -7,7 +7,9 @@ const mapStateToProps = reduxState => ({
 });
 
 class Menu extends Component {
-
+  state = {
+    count: 0
+  }
     componentDidMount() {
         this.props.dispatch(
           {
@@ -15,22 +17,25 @@ class Menu extends Component {
         })
     }
 
-    handleAdd = () => {
-      return (event) => {
+    handleAddClick = () => {
+      return (event, pizzaId) => {
         console.log('handle add', event.target.value)
-        this.props.dispatch({
-          type: 'ADD_PIZZA', 
-          payload: event.target.value
+        let pizzaToSend = JSON.parse(event.target.value)
+        return this.props.dispatch({
+          type: 'ADD_PIZZA',
+          payload: pizzaToSend
         })
     }
+  }
 
 
-    handleSubtract = () => {
-      return (event) => {
+    handleSubtractClick = () => {
+       return (event) => {
         console.log('handle subtract', event.target.value)
-        this.props.dispatch({
+        let pizzaToSend = JSON.parse(event.target.value)
+        return this.props.dispatch({
           type: 'REMOVE_PIZZA',
-          payload: event.target.value 
+          payload: pizzaToSend
         })
       }
     }
@@ -43,14 +48,15 @@ class Menu extends Component {
 
 
       })
+      
       return (
 
         <div className="App">
 
-          <p>Pizza Menu</p
-          <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre
+          <p>Pizza Menu</p>
+          <pre>{JSON.stringify(this.props.reduxState.orderTotal)}</pre>
           <div>
-
+            {pizzaDisplay}
           </div>
 
         </div>

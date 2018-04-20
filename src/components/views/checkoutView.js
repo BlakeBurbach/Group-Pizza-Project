@@ -5,12 +5,22 @@ const mapStateToProps = reduxState => ({
   reduxState,
 });
 
-const mapStateToProps = reduxState => ({
-  reduxState,
-});
-
 class Checkout extends Component {
+state = {
+  newOrder: {
+    customer_name: '',
+    order_total: ''
+  }
+}
 
+handleChange = (event) => {
+  this.setState({
+    newOrder: {
+        ...this.state.newOrder,
+        [event.target.name]: event.target.value,
+    }
+});
+}
 
     render() {
       return (
