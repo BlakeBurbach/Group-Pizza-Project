@@ -15,7 +15,6 @@ const sagaMiddleware = createSagaMiddleware();
 function* rootSaga() {
     console.log('rootSaga loaded');
     yield takeEvery('GET_PIZZAS', fetchSaga);
-    yield takeEvery('GET_PIZZAS', fetchSaga); 
     yield takeEvery('ADD_ORDER', postSaga);
   }
 
